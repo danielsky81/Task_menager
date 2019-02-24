@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for, request
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -16,6 +16,9 @@ mongo = PyMongo(app)
 def get_tasks():
     return render_template('tasks.html', tasks=mongo.db.tasks.find())
 
+@app.route('/add_task')
+def add_task():
+    return render_template('addtask.html')
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
